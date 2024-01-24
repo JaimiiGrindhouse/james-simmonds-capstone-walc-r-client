@@ -5,8 +5,7 @@ import MapboxDirections from "@mapbox/mapbox-gl-directions/dist/mapbox-gl-direct
 import "@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-mapboxgl.accessToken =
-  "pk.eyJ1IjoiamFpbWlpIiwiYSI6ImNscnFrYWg4ejAzdWsyaG1yOWU1NTgwOWoifQ.lRUy6obRELtZb0wjEaX4jg";
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 const MapComponent = () => {
   const [map, setMap] = useState(null);
