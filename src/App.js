@@ -1,11 +1,14 @@
 import "./App.css";
 import MapRoutingComponent from "./components/MapRoutingComponent";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import RoutePlanner from "./pages/RoutePlanner";
 
 function App() {
   return (
-    <div>
+    <Router>
       <MapRoutingComponent />
-    </div>
+      <Route path="/routeplanner" component={RoutePlanner} />
+    </Router>
   );
 }
 
