@@ -1,10 +1,10 @@
 import "./App.css";
-import MapComponent from "./components/MapComponent";
+import MapRoutingComponent from "./components/MapRoutingComponent";
 
 function App() {
   return (
     <div>
-      <MapComponent />
+      <MapRoutingComponent />
     </div>
   );
 }

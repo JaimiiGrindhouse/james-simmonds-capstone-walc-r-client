@@ -7,7 +7,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
-const MapComponent = () => {
+const MapRoutingComponent = () => {
   const [map, setMap] = useState(null);
 
   const initializeMap = () => {
@@ -99,4 +99,4 @@ const MapComponent = () => {
   );
 };
 
-export default MapComponent;
+export default MapRoutingComponent;
