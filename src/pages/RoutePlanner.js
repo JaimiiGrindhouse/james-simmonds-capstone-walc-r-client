@@ -5,7 +5,6 @@ function RoutePlanner() {
   console.log(window.location.pathname);
   return (
     <>
-      <h1>route planner</h1>
       <MapRoutingComponent />
     </>
   );

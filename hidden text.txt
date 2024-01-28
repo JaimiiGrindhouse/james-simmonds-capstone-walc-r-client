@@ -9,10 +9,10 @@ mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 const MapComponent = () => {
   const [map, setMap] = useState(null);
-  const [showUserPopup, setShowUserPopup] = useState(true); // Add this for popup visibility control
 
   const initializeMap = async () => {
     try {
+      // Get the user's location
       const userLocation = await new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(
           (position) =>
@@ -21,11 +21,12 @@ const MapComponent = () => {
         );
       });
 
+      // Create the map with the user's location as center
       const mapInstance = new mapboxgl.Map({
         container: "map",
         style: "mapbox://styles/mapbox/streets-v11",
         center: userLocation,
-        zoom: 13,
+        zoom: 13, // Adjust zoom level as needed
       });
 
       setMap(mapInstance);
@@ -36,7 +37,7 @@ const MapComponent = () => {
         unit: "metric",
         profile: "mapbox/walking",
         controls: {
-          instructions: false,
+          instructions: false, // toggling this boolean value shows or rmoves the directions panel
         },
       });
       mapInstance.addControl(directions, "top-left");
@@ -45,23 +46,8 @@ const MapComponent = () => {
       const markersData = [
         { coordinates: [-0.1, 51.5], popupContent: "Marker 1 - Lorem Ipsum" },
         { coordinates: [-0.2, 51.51], popupContent: "Marker 2 - Lorem Ipsum" },
+        // Add more marker data as needed
       ];
-
-      // Add user location marker
-      const userMarker = new mapboxgl.Marker({
-        color: "purple",
-        draggable: false,
-      })
-        .setLngLat(userLocation)
-        .addTo(mapInstance);
-
-      // Add user marker to markersData if popup is desired
-      if (showUserPopup) {
-        markersData.push({
-          coordinates: userLocation,
-          popupContent: "Your Location",
-        });
-      }
 
       // Add markers with popups
       markersData.forEach((markerData) => {
@@ -85,6 +71,7 @@ const MapComponent = () => {
         document.getElementById("map").style.height = `${newHeight}px`;
       });
     } catch (error) {
+      // Handle errors here, e.g., log the error or display a message
       console.error("Error fetching user location:", error);
     }
   };
@@ -101,3 +88,4 @@ const MapComponent = () => {
 };
 
 export default MapComponent;
+

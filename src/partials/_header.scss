@@ -1,0 +1,12 @@
+@use "./variables" as *;
+@use "./typography" as *;
+
+.navbar {
+  background-color: $primary-main !important;
+}
+.nav {
+  background-color: $primary-main;
+}
+.container {
+  background-color: $primary-main;
+}

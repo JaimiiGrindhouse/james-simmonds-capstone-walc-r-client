@@ -1,17 +1,24 @@
 import React, { useState, useEffect } from "react";
 import mapboxgl from "mapbox-gl";
 import MapboxDirections from "@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions";
+import axios from "axios";
 
 import "@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
-const MapComponent = () => {
+const SantanderFinder = () => {
   const [map, setMap] = useState(null);
-  const [showUserPopup, setShowUserPopup] = useState(true); // Add this for popup visibility control
+  const [showUserPopup, setShowUserPopup] = useState(true);
+  const [markersData, setMarkersData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false); // Add loading state
+  const [error, setError] = useState(null); // Add error state
 
   const initializeMap = async () => {
+    setIsLoading(true); // Set loading state to true
+    setError(null); // Clear any previous errors
+
     try {
       const userLocation = await new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(
@@ -41,15 +48,24 @@ const MapComponent = () => {
       });
       mapInstance.addControl(directions, "top-left");
 
-      // Sample JSON data for markers
-      const markersData = [
-        { coordinates: [-0.1, 51.5], popupContent: "Marker 1 - Lorem Ipsum" },
-        { coordinates: [-0.2, 51.51], popupContent: "Marker 2 - Lorem Ipsum" },
-      ];
+      // Fetch Santander bike point data from API
+      const response = await axios.get("https://api.tfl.gov.uk/bikepoint");
+      const bikePointsData = response.data;
+      console.log(bikePointsData);
+
+      const markers = bikePointsData.map((bikePoint) => ({
+        lat: bikePoint.lat,
+        lon: bikePoint.lon,
+        id: bikePoint.id,
+        commonName: bikePoint.commonName,
+        placeType: bikePoint.placeType,
+      }));
+
+      setMarkersData(markers);
 
       // Add user location marker
       const userMarker = new mapboxgl.Marker({
-        color: "purple",
+        color: "red",
         draggable: false,
       })
         .setLngLat(userLocation)
@@ -65,27 +81,24 @@ const MapComponent = () => {
 
       // Add markers with popups
       markersData.forEach((markerData) => {
+        const { lat, lon, id, commonName, placeType } = markerData;
+        const coordinates = [lon, lat];
+        console.log(coordinates);
+
         const marker = new mapboxgl.Marker()
-          .setLngLat(markerData.coordinates)
+          .setLngLat(coordinates)
           .addTo(mapInstance);
 
         const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
-          `<h3>${markerData.popupContent}</h3><p>This is a popup associated with the marker.</p>`
+          `<h3>${commonName}</h3><p>ID: ${id}</p><p>Place Type: ${placeType}</p>`
         );
 
         marker.setPopup(popup);
       });
-
-      // Update map container height on window resize
-      window.addEventListener("resize", () => {
-        const newHeight =
-          window.innerHeight -
-          document.getElementById("map").getBoundingClientRect().top;
-        mapInstance.resize();
-        document.getElementById("map").style.height = `${newHeight}px`;
-      });
     } catch (error) {
-      console.error("Error fetching user location:", error);
+      setError(error); // Set error state if fetching fails
+    } finally {
+      setIsLoading(false); // Set loading state to false
     }
   };
 
@@ -95,9 +108,11 @@ const MapComponent = () => {
 
   return (
     <div>
+      {isLoading && <p>Loading bike points...</p>}
+      {error && <p>Error: {error.message}</p>}
       <div id="map" style={{ height: "100vh" }} />
     </div>
   );
 };
 
-export default MapComponent;
+export default SantanderFinder;

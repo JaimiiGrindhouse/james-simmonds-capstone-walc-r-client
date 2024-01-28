@@ -1,11 +1,22 @@
+$font-primary: "Poppins", "sans-serif";
+
 @font-face {
-  font-family: primary-font;
-  src: url(../../assets/fonts/TitilliumWeb-Regular.ttf);
+  font-family: Poppins;
+  src: url(../../public/assets/fonts/Poppins-Regular.ttf) format("ttf");
+  font-style: regular;
   font-weight: 400;
 }
 
 @font-face {
-  font-family: primary-font;
-  src: url(../../assets/fonts/TitilliumWeb-SemiBold.ttf);
-  font-weight: 600;
+  font-family: Poppins;
+  src: url(../../public/assets/fonts/Poppins-Light.ttf) format("ttf");
+  font-style: light;
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: Poppins;
+  src: url(../../public/assets/fonts/Poppins-Black.ttf) format("ttf");
+  font-style: heavy_black;
+  font-weight: 900;
 }
