@@ -12,12 +12,12 @@ const SantanderFinder = () => {
   const [map, setMap] = useState(null);
   const [showUserPopup, setShowUserPopup] = useState(true);
   const [markersData, setMarkersData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false); // Add loading state
-  const [error, setError] = useState(null); // Add error state
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const initializeMap = async () => {
-    setIsLoading(true); // Set loading state to true
-    setError(null); // Clear any previous errors
+    setIsLoading(true);
+    setError(null);
 
     try {
       const userLocation = await new Promise((resolve, reject) => {
@@ -32,7 +32,7 @@ const SantanderFinder = () => {
         container: "map",
         style: "mapbox://styles/mapbox/streets-v11",
         center: userLocation,
-        zoom: 13,
+        zoom: 14,
       });
 
       setMap(mapInstance);
@@ -51,7 +51,6 @@ const SantanderFinder = () => {
       // Fetch Santander bike point data from API
       const response = await axios.get("https://api.tfl.gov.uk/bikepoint");
       const bikePointsData = response.data;
-      console.log(bikePointsData);
 
       const markers = bikePointsData.map((bikePoint) => ({
         lat: bikePoint.lat,
@@ -79,26 +78,33 @@ const SantanderFinder = () => {
         });
       }
 
-      // Add markers with popups
+      // Add markers with popups (skipping undefined lat/lon)
       markersData.forEach((markerData) => {
         const { lat, lon, id, commonName, placeType } = markerData;
-        const coordinates = [lon, lat];
-        console.log(coordinates);
 
-        const marker = new mapboxgl.Marker()
-          .setLngLat(coordinates)
-          .addTo(mapInstance);
+        if (lat !== undefined && lon !== undefined) {
+          const coordinates = [lon, lat];
+          console.log(coordinates); //log to remove later
+          const marker = new mapboxgl.Marker()
+            .setLngLat(coordinates)
+            .addTo(mapInstance);
+          console.log(marker); // Log to remove later
 
-        const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
-          `<h3>${commonName}</h3><p>ID: ${id}</p><p>Place Type: ${placeType}</p>`
-        );
+          const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
+            `<h3>${commonName}</h3><p>ID: ${id}</p><p>Place Type: ${placeType}</p>`
+          );
 
-        marker.setPopup(popup);
+          marker.setPopup(popup);
+        } else {
+          console.log(
+            `Skipping marker with undefined lat or lon: ${markerData}`
+          ); //Log to remove later
+        }
       });
     } catch (error) {
-      setError(error); // Set error state if fetching fails
+      setError(error);
     } finally {
-      setIsLoading(false); // Set loading state to false
+      setIsLoading(false);
     }
   };
 

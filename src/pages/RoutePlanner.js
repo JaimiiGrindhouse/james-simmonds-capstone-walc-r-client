@@ -1,3 +1,4 @@
+import ButtonsNavBar from "../components/ButtonsNavBar";
 import MapRoutingComponent from "../components/MapRoutingComponent";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -6,6 +7,7 @@ function RoutePlanner() {
   return (
     <>
       <MapRoutingComponent />
+      <ButtonsNavBar />
     </>
   );
 }

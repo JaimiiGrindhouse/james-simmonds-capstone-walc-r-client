@@ -6,6 +6,7 @@ import RoutePlanner from "./pages/RoutePlanner";
 import HomePage from "./pages/HomePage";
 import Header from "./components/Header";
 import LandingPage from "./pages/LandingPage";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           element={<SantanderBikeStations />}
         />
       </Routes>
+      <Footer />
     </Router>
   );
 }

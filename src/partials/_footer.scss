@@ -1,0 +1,21 @@
+// @use "./partials/resets";
+@use "./breakpoints" as *;
+@use "./variables" as *;
+@use "./typography";
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $primary-main;
+  height: 3rem;
+  width: 100%;
+  background-color: $primary-main;
+
+  &_copyright {
+    font-weight: 500;
+  }
+  &_name {
+    font-weight: 300;
+  }
+}
