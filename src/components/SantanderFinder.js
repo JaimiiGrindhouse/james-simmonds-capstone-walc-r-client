@@ -51,6 +51,7 @@ const SantanderFinder = () => {
       // Fetch Santander bike point data from API
       const response = await axios.get("https://api.tfl.gov.uk/bikepoint");
       const bikePointsData = response.data;
+      console.log(bikePointsData);
 
       const markers = bikePointsData.map((bikePoint) => ({
         lat: bikePoint.lat,
@@ -77,30 +78,6 @@ const SantanderFinder = () => {
           popupContent: "Your Location",
         });
       }
-
-      // Add markers with popups (skipping undefined lat/lon)
-      markersData.forEach((markerData) => {
-        const { lat, lon, id, commonName, placeType } = markerData;
-
-        if (lat !== undefined && lon !== undefined) {
-          const coordinates = [lon, lat];
-          console.log(coordinates); //log to remove later
-          const marker = new mapboxgl.Marker()
-            .setLngLat(coordinates)
-            .addTo(mapInstance);
-          console.log(marker); // Log to remove later
-
-          const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
-            `<h3>${commonName}</h3><p>ID: ${id}</p><p>Place Type: ${placeType}</p>`
-          );
-
-          marker.setPopup(popup);
-        } else {
-          console.log(
-            `Skipping marker with undefined lat or lon: ${markerData}`
-          ); //Log to remove later
-        }
-      });
     } catch (error) {
       setError(error);
     } finally {
@@ -112,11 +89,31 @@ const SantanderFinder = () => {
     initializeMap();
   }, []);
 
+  useEffect(() => {
+    markersData.forEach((markerData) => {
+      const { lat, lon, id, commonName, placeType } = markerData;
+
+      if (lat !== undefined && lon !== undefined) {
+        const coordinates = [lon, lat];
+        console.log(coordinates);
+        const marker = new mapboxgl.Marker().setLngLat(coordinates).addTo(map);
+
+        const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
+          `<h3>${commonName}</h3><p>ID: ${id}</p><p>Place Type: ${placeType}</p>`
+        );
+
+        marker.setPopup(popup);
+      } else {
+        console.log(`Skipping marker with undefined lat or lon: ${markerData}`);
+      }
+    });
+  }, [markersData]);
+
   return (
     <div>
       {isLoading && <p>Loading bike points...</p>}
       {error && <p>Error: {error.message}</p>}
-      <div id="map" style={{ height: "100vh" }} />
+      <div id="map" style={{ height: "80vh" }} />
     </div>
   );
 };

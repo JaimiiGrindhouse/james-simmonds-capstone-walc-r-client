@@ -4,6 +4,7 @@ import MapboxDirections from "@mapbox/mapbox-gl-directions/dist/mapbox-gl-direct
 
 import "@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css";
 import "mapbox-gl/dist/mapbox-gl.css";
+import ButtonsNavBar from "./ButtonsNavBar";
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
@@ -95,7 +96,7 @@ const MapComponent = () => {
 
   return (
     <div>
-      <div id="map" style={{ height: "100vh" }} />
+      <div id="map" style={{ height: "80vh" }} />
     </div>
   );
 };

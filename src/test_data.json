@@ -1,0 +1,13 @@
+[
+  {
+    "$type": "Tfl.Api.Presentation.Entities.Place, Tfl.Api.Presentation.Entities",
+    "id": "BikePoints_1",
+    "url": "/Place/BikePoints_1",
+    "commonName": "River Street , Clerkenwell",
+    "placeType": "BikePoint",
+    "children": [],
+    "childrenUrls": [],
+    "lat": 51.529163,
+    "lon": -0.10997
+  }
+]

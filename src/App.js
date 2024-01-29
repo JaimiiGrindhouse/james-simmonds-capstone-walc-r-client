@@ -21,7 +21,7 @@ function App() {
           element={<SantanderBikeStations />}
         />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </Router>
   );
 }
