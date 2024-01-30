@@ -2,7 +2,27 @@
 @use "./typography" as *;
 @use "./breakpoints" as *;
 
-.pop-up_img {
-  height: 2rem;
-  width: 2rem;
+.popup-id {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.popup-parking-provision,
+.popup-parking-capacity {
+  margin-bottom: 10px;
+}
+
+.popup-image-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.popup-image {
+  width: 48%;
+  border-radius: 5px;
+}
+
+.popup-image:hover {
+  transform: scale(1.6);
+  transition: transform 0.25s ease;
 }

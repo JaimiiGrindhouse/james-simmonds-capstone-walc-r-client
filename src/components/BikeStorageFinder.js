@@ -111,7 +111,13 @@ const BikeStorageFinder = () => {
         const marker = new mapboxgl.Marker().setLngLat(coordinates).addTo(map);
 
         const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
-          `<h3>ID: ${id}</h3><p>Parking Provision: ${parking_provision}</p><p>Parking Capacity: ${parking_capacity}</p><p className="pop-up_img"><img src="${photo_1}"></p><p className="pop-up_img"><img src="${photo_2}"></p>`
+          `<h3>ID: ${id} <span class="popup-id"></span></h3>
+          <p>Parking Provision: ${parking_provision} <span class="popup-parking-provision"></span></p>
+          <p>Parking Capacity: ${parking_capacity} <span class="popup-parking-capacity"></span></p>
+          <p class="popup-image-container">
+            <img src="${photo_1}" alt="Photo 1" class="popup-image" />
+            <img src="${photo_2}" alt="Photo 2" class="popup-image" />
+          </p>`
         );
 
         marker.setPopup(popup);
