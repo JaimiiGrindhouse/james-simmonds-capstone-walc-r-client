@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import mapboxgl from "mapbox-gl";
 import MapboxDirections from "@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 import "@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -9,11 +10,19 @@ import "../partials/_bikestoragefinder.scss";
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 const BikeStorageFinder = () => {
+  const { borough } = useParams();
   const [map, setMap] = useState(null);
   const [showUserPopup, setShowUserPopup] = useState(true);
   const [markersData, setMarkersData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [selectedBorough, setSelectedBorough] = useState(borough); // Initial value
+
+  const boroughs = ["hackney", "islington", "camden" /* ... other boroughs */];
+
+  const handleBoroughChange = (event) => {
+    setSelectedBorough(event.target.value);
+  };
 
   const initializeMap = async () => {
     setIsLoading(true);
@@ -50,7 +59,7 @@ const BikeStorageFinder = () => {
 
       // Fetch bike storage data
       const response = await axios.get(
-        "http://localhost:5059/bikestorage/borough/hackney"
+        `http://localhost:5059/bikestorage/borough/${selectedBorough}`
       );
       const bikeStorageData = response.data;
       console.log(bikeStorageData);
@@ -91,7 +100,7 @@ const BikeStorageFinder = () => {
 
   useEffect(() => {
     initializeMap();
-  }, []);
+  }, [selectedBorough]);
 
   useEffect(() => {
     markersData.forEach((markerData) => {
@@ -131,6 +140,13 @@ const BikeStorageFinder = () => {
     <div>
       {isLoading && <p>Loading Bike Storage...</p>}
       {error && <p>Error: {error.message}</p>}
+      <select value={selectedBorough} onChange={handleBoroughChange}>
+        {boroughs.map((borough) => (
+          <option className="borough-select" key={borough} value={borough}>
+            {borough}
+          </option>
+        ))}
+      </select>
       <div id="map" style={{ height: "80vh" }} />
     </div>
   );
