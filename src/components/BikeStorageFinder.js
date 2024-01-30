@@ -140,9 +140,13 @@ const BikeStorageFinder = () => {
     <div>
       {isLoading && <p>Loading Bike Storage...</p>}
       {error && <p>Error: {error.message}</p>}
-      <select value={selectedBorough} onChange={handleBoroughChange}>
+      <select
+        className="borough-select"
+        value={selectedBorough}
+        onChange={handleBoroughChange}
+      >
         {boroughs.map((borough) => (
-          <option className="borough-select" key={borough} value={borough}>
+          <option key={borough} value={borough}>
             {borough}
           </option>
         ))}
