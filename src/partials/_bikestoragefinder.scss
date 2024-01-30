@@ -1,0 +1,8 @@
+@use "./variables" as *;
+@use "./typography" as *;
+@use "./breakpoints" as *;
+
+.pop-up_img {
+  height: 2rem;
+  width: 2rem;
+}

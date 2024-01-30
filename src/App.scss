@@ -1,0 +1,4 @@
+@use "./partials/resets";
+@use "./partials/breakpoints" as *;
+@use "./partials/variables" as *;
+@import "~bootstrap/scss/bootstrap";
