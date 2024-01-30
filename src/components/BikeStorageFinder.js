@@ -123,7 +123,7 @@ const BikeStorageFinder = () => {
 
   return (
     <div>
-      {isLoading && <p>Loading bike points...</p>}
+      {isLoading && <p>Loading Bike Storage...</p>}
       {error && <p>Error: {error.message}</p>}
       <div id="map" style={{ height: "80vh" }} />
     </div>
