@@ -1,0 +1,42 @@
+@use "./breakpoints" as *;
+@use "./variables" as *;
+@use "./typography";
+
+.weather {
+  display: flex;
+  flex-direction: column;
+  background-color: $primary-dark;
+  height: 40%;
+}
+
+.weather-title {
+  padding-left: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.weather-data {
+  display: flex;
+  flex-direction: row;
+  padding-left: 2rem;
+  margin-bottom: 2rem;
+
+  &_data {
+    flex: 1;
+    background-color: $primary-light;
+    border: 2px solid white;
+    border-radius: 20px;
+
+    padding: 0.5rem;
+    border-right: none;
+  }
+
+  &_img {
+    margin-right: 2rem;
+    flex: 1;
+    border: 2px solid white;
+    background-color: $primary-light;
+    border-radius: 20px;
+    padding: 0.5rem;
+    border-left: none;
+  }
+}
