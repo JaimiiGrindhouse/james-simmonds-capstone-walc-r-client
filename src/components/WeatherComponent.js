@@ -3,23 +3,25 @@ import axios from "axios";
 import "../partials/__weather.scss";
 
 const WeatherComponent = ({ userLocation }) => {
-  console.log(userLocation);
   const [weatherData, setWeatherData] = useState(null);
+  const [weatherIcon, setWeatherIcon] = useState(null); // State for icon code
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const apiUrl = `http://localhost:5059/weather/${userLocation}`;
+        const apiUrl = `http://localhost:5059/weather/${userLocation}?icon=true`; // API URL with icon parameter
 
         const response = await axios.get(apiUrl);
         setWeatherData(response.data);
+        if (response.data.weather[0].icon) {
+          // Extract icon code
+          setWeatherIcon(response.data.weather[0].icon);
+        }
       } catch (error) {
         console.error("Error fetching weather data:", error);
       }
     };
 
-    // if (!userLocation && !weatherData) {
-    // }
     fetchData();
   }, []);
 
@@ -27,7 +29,6 @@ const WeatherComponent = ({ userLocation }) => {
     <>
       {weatherData ? (
         <div className="weather">
-          {/* Test weatherData return */}
           <h1 className="weather-title">
             The weather in {weatherData.name} is...
           </h1>
@@ -35,10 +36,15 @@ const WeatherComponent = ({ userLocation }) => {
             <div className="weather-data_data">
               <p>Temp: {weatherData.main.temp} °C</p>
               <p>Forecast: {weatherData.weather[0].description}</p>
-              <p> Wind: {weatherData.wind.speed} mph</p>
+              <p>Wind: {weatherData.wind.speed} mph</p>
             </div>
             <div className="weather-data_img">
-              <p> Wind Speed: {weatherData.weather[0].icon} mph</p>
+              {weatherIcon && ( // Conditionally render icon
+                <img
+                  src={`https://openweathermap.org/img/w/${weatherIcon}.png`}
+                  alt={`Weather icon for ${weatherData.weather[0].description}`} // Accessibility
+                />
+              )}
             </div>
           </div>
         </div>
