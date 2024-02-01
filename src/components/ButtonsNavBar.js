@@ -1,24 +1,27 @@
 import "../partials/_buttonsnavbar.scss";
 import { Link } from "react-router-dom";
+import cycle_parking from "../assets/icons/cycle_parking.jpg";
+import cycle_hire from "../assets/icons/bike_icon.png";
 
 function ButtonsNavBar() {
   return (
     <>
-      <section className="btn-nav">
-        <article className="btn-nav_container">
-          <Link className="btn-nav_container_btn" to="/home">
-            <button>Home</button>
+      <section className="button-nav">
+        <div className="button-container">
+          <Link to="/bikestorage">
+            <img className="button-img" src={cycle_parking} />
           </Link>
-          <Link className="btn-nav_container_btn" to="/santanderbikefinder">
-            <button>Santander</button>
+        </div>
+        <div className="button-container">
+          <Link to="/santanderbikefinder">
+            <img className="button-img" src={cycle_hire} />
           </Link>
-          <Link className="btn-nav_container_btn" to="/routeplanner">
-            <button>Routes</button>
+        </div>
+        <div className="button-container">
+          <Link to="/santanderbikefinder">
+            <img className="button-img" src={cycle_hire} />
           </Link>
-          <Link className="btn-nav_container_btn" to="/routeplanner">
-            <button>Storage</button>
-          </Link>
-        </article>
+        </div>
       </section>
     </>
   );
