@@ -24,17 +24,19 @@
     flex: 1;
     background-color: $primary-light;
     border: 2px solid white;
-    border-radius: 10px;
+    border-radius: 20px;
+
     padding: 0.5rem;
+    border-right: none;
   }
 
   &_img {
-    margin-left: 1rem;
     margin-right: 2rem;
     flex: 1;
     border: 2px solid white;
     background-color: $primary-light;
-    border-radius: 10px;
+    border-radius: 20px;
     padding: 0.5rem;
+    border-left: none;
   }
 }
