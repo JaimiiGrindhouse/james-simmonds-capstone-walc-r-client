@@ -3,6 +3,8 @@ import GeolocationComponent from "../components/GeolocationComponent";
 import WeatherComponent from "../components/WeatherComponent";
 import ButtonsNavBar from "../components/ButtonsNavBar";
 import Header from "../components/Header";
+import "../partials/__weather.scss";
+import "../pages/HomePage.scss";
 
 function HomePage() {
   const [userLocation, setUserLocation] = useState(null);
@@ -13,9 +15,7 @@ function HomePage() {
 
   return (
     <>
-      <h1>Home page.....under construction</h1>
-      <div className="weather"></div>
-      <div>
+      <div className="weather">
         {/* GeolocationComponent retrieves the user's location and updates userLocation state */}
         <GeolocationComponent
           onLocationChange={handleLocationChange}
@@ -24,6 +24,7 @@ function HomePage() {
         {/* WeatherComponent receives userLocation as coordinates and fetches weather data */}
         {userLocation && <WeatherComponent userLocation={userLocation} />}
       </div>
+      <div className="home-body"></div>
 
       <ButtonsNavBar />
     </>

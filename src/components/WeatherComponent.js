@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "../partials/__weather.scss";
 
 const WeatherComponent = ({ userLocation }) => {
   console.log(userLocation);
@@ -25,10 +26,21 @@ const WeatherComponent = ({ userLocation }) => {
   return (
     <>
       {weatherData ? (
-        <div>
+        <div className="weather">
           {/* Test weatherData return */}
-          <p>Temperature: {weatherData.main.temp}</p>
-          <p>Weather: {weatherData.weather[0].description}</p>
+          <h1 className="weather-title">
+            The weather in {weatherData.name} is...
+          </h1>
+          <div className="weather-data">
+            <div className="weather-data_data">
+              <p>Temp: {weatherData.main.temp} °C</p>
+              <p>Forecast: {weatherData.weather[0].description}</p>
+              <p> Wind: {weatherData.wind.speed} mph</p>
+            </div>
+            <div className="weather-data_img">
+              <p> Wind Speed: {weatherData.weather[0].icon} mph</p>
+            </div>
+          </div>
         </div>
       ) : (
         <p>Loading weather data...</p>
