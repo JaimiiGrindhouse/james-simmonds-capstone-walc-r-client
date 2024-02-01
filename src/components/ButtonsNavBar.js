@@ -15,7 +15,7 @@ function ButtonsNavBar() {
           <Link className="btn-nav_container_btn" to="/routeplanner">
             <button>Routes</button>
           </Link>
-          <Link className="btn-nav_container_btn" to="/routeplanner">
+          <Link className="btn-nav_container_btn" to="/bikestorage">
             <button>Storage</button>
           </Link>
         </article>

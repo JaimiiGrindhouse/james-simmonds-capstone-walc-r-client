@@ -41,7 +41,7 @@ const BikeStorageFinder = () => {
         container: "map",
         style: "mapbox://styles/mapbox/streets-v11",
         center: userLocation,
-        zoom: 17,
+        zoom: 18,
       });
 
       setMap(mapInstance);
