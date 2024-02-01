@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-const GeolocationComponent = ({ onLocationChange }) => {
+const GeolocationComponent = ({ userLocation, onLocationChange }) => {
   useEffect(() => {
     const fetchLocation = async () => {
       try {
@@ -11,12 +11,13 @@ const GeolocationComponent = ({ onLocationChange }) => {
       }
     };
 
-    // Check if there is already data in the state before calling geolocation
-    const existingLocation = onLocationChange([]);
-    if (!existingLocation) {
-      fetchLocation();
-    }
-  }, [onLocationChange]);
+    // // Check if there is already data in the state before calling geolocation
+    // const existingLocation = onLocationChange([]);
+    // if (!userLocation) {
+    //   fetchLocation();
+    // }
+    fetchLocation();
+  }, []);
 
   const fetchUserLocation = async () => {
     return new Promise((resolve, reject) => {

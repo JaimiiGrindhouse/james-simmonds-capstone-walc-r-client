@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const WeatherComponent = ({ coordinates }) => {
-  console.log(coordinates);
+const WeatherComponent = ({ userLocation }) => {
+  console.log(userLocation);
   const [weatherData, setWeatherData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const apiUrl = `http://localhost:5059/weather/${coordinates}`;
+        const apiUrl = `http://localhost:5059/weather/${userLocation}`;
 
         const response = await axios.get(apiUrl);
         setWeatherData(response.data);
@@ -17,10 +17,10 @@ const WeatherComponent = ({ coordinates }) => {
       }
     };
 
-    if (coordinates) {
-      fetchData();
-    }
-  }, [coordinates]);
+    // if (!userLocation && !weatherData) {
+    // }
+    fetchData();
+  }, []);
 
   return (
     <>
