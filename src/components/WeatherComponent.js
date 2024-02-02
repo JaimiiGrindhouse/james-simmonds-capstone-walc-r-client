@@ -45,8 +45,8 @@ const WeatherComponent = ({ userLocation }) => {
               <div className="weather-data_data">
                 <h1>{weatherData.weather[0].description}</h1>
                 <div className="weather-data_data_sub">
-                  <p>{weatherData.main.temp} °C </p>
-
+                  <p>{weatherData.main.temp} °C</p>
+                  <span> | </span>
                   <p> {weatherData.wind.speed} mph</p>
                 </div>
               </div>

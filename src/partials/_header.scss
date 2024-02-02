@@ -10,3 +10,14 @@
 .container {
   background-color: $primary-main;
 }
+
+.Logo {
+  height: 2rem;
+  width: 6rem;
+  margin-left: 1rem;
+}
+
+.no-decoration {
+  text-decoration: none;
+  color: $txt-dark;
+}
