@@ -1,6 +1,7 @@
 import "../pages/LandingPage.scss";
 import Logo from "../assets/images/logo.png";
 import { Link } from "react-router-dom";
+import Enter from "../assets/icons/enter-button-icon.png";
 
 function LandingPage() {
   console.log(window.location.pathname);
@@ -12,9 +13,9 @@ function LandingPage() {
             <img className="landing-container_logo" src={Logo} />
           </div>
 
-          <div className="landing_button">
+          <div className="landing-container_enter">
             <Link to="/home">
-              <img />
+              <img className="landing-container_enter_button" src={Enter} />
             </Link>
           </div>
         </div>
