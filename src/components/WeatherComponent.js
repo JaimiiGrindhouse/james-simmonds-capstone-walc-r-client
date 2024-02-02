@@ -33,18 +33,23 @@ const WeatherComponent = ({ userLocation }) => {
             The weather in {weatherData.name} is...
           </h1>
           <div className="weather-data">
-            <div className="weather-data_data">
-              <p>Temp: {weatherData.main.temp} °C</p>
-              <p>Forecast: {weatherData.weather[0].description}</p>
-              <p>Wind: {weatherData.wind.speed} mph</p>
-            </div>
             <div className="weather-data_img">
               {weatherIcon && ( // Conditionally render icon
                 <img
+                  className="weather-data_img_actual"
                   src={`https://openweathermap.org/img/w/${weatherIcon}.png`}
                   alt={`Weather icon for ${weatherData.weather[0].description}`} // Accessibility
                 />
               )}
+
+              <div className="weather-data_data">
+                <h1>{weatherData.weather[0].description}</h1>
+                <div className="weather-data_data_sub">
+                  <p>{weatherData.main.temp} °C </p>
+
+                  <p> {weatherData.wind.speed} mph</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

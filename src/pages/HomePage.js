@@ -3,7 +3,7 @@ import GeolocationComponent from "../components/GeolocationComponent";
 import WeatherComponent from "../components/WeatherComponent";
 import ButtonsNavBar from "../components/ButtonsNavBar";
 import Header from "../components/Header";
-import "../partials/__weather.scss";
+// import "../partials/__weather.scss";
 import "../pages/HomePage.scss";
 import ImageGalleryComponent from "../components/ImageGalleryComponent";
 
