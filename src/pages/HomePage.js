@@ -5,6 +5,7 @@ import ButtonsNavBar from "../components/ButtonsNavBar";
 import Header from "../components/Header";
 import "../partials/__weather.scss";
 import "../pages/HomePage.scss";
+import ImageGalleryComponent from "../components/ImageGalleryComponent";
 
 function HomePage() {
   const [userLocation, setUserLocation] = useState(null);
@@ -25,7 +26,7 @@ function HomePage() {
         {/* WeatherComponent receives userLocation as coordinates and fetches weather data */}
         {userLocation && <WeatherComponent userLocation={userLocation} />}
       </div>
-      <div className="home-body"></div>
+      <ImageGalleryComponent className="gallery" />
 
       <ButtonsNavBar />
     </>
