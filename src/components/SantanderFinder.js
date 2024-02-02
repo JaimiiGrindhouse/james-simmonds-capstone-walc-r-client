@@ -59,6 +59,15 @@ const SantanderFinder = () => {
         id: bikePoint.id,
         commonName: bikePoint.commonName,
         placeType: bikePoint.placeType,
+        nbBikes: bikePoint.additionalProperties.find(
+          (prop) => prop.key === "NbBikes"
+        ).value,
+        nbEmptyDocks: bikePoint.additionalProperties.find(
+          (prop) => prop.key === "NbEmptyDocks"
+        ).value,
+        nbDocks: bikePoint.additionalProperties.find(
+          (prop) => prop.key === "NbDocks"
+        ).value,
       }));
 
       setMarkersData(markers);
@@ -91,7 +100,16 @@ const SantanderFinder = () => {
 
   useEffect(() => {
     markersData.forEach((markerData) => {
-      const { lat, lon, id, commonName, placeType } = markerData;
+      const {
+        lat,
+        lon,
+        id,
+        commonName,
+        placeType,
+        nbBikes,
+        nbEmptyDocks,
+        nbDocks,
+      } = markerData;
 
       if (lat !== undefined && lon !== undefined) {
         const coordinates = [lon, lat];
@@ -99,7 +117,9 @@ const SantanderFinder = () => {
         const marker = new mapboxgl.Marker().setLngLat(coordinates).addTo(map);
 
         const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
-          `<h3>${commonName}</h3><p>ID: ${id}</p><p>Place Type: ${placeType}</p>`
+          `<h3>${commonName}</h3><p>ID: ${id}</p><p>Place Type: ${placeType}</p><p>Available Bikes: ${nbBikes}</p>
+          <p>Available Empty Docks: ${nbEmptyDocks}</p>
+          <p>Total Docks: ${nbDocks}</p>`
         );
 
         marker.setPopup(popup);
