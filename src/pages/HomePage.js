@@ -15,6 +15,7 @@ function HomePage() {
 
   return (
     <>
+      <Header />
       <div className="weather">
         {/* GeolocationComponent retrieves the user's location and updates userLocation state */}
         <GeolocationComponent

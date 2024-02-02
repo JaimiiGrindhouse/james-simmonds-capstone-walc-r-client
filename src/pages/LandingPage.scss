@@ -1,0 +1,38 @@
+@use "../partials/breakpoints" as *;
+@use "../partials/variables" as *;
+@use "../partials/typography";
+
+.landing {
+  height: 100vh;
+  background-color: $primary-main;
+}
+
+.landing-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &_logo {
+    margin-top: 20%;
+    width: 15rem;
+  }
+
+  &_enter {
+    margin-top: 50%;
+    width: 4rem;
+    height: 2rem;
+    transition: transform 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+
+    .landing-container &:hover {
+      transform: scale(1.4); /* Increase size by 10% on hover */
+      box-shadow: 0 5px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    &_button {
+      height: 100%;
+      width: 100%;
+    }
+  }
+}
