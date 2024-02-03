@@ -117,8 +117,8 @@ const SantanderFinder = () => {
         const marker = new mapboxgl.Marker().setLngLat(coordinates).addTo(map);
 
         const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
-          `<h3>${commonName}</h3><p>ID: ${id}</p><p>Place Type: ${placeType}</p><p>Available Bikes: ${nbBikes}</p>
-          <p>Available Empty Docks: ${nbEmptyDocks}</p>
+          `<h3>${commonName}</h3><p>ID: ${id}</p><p>Place Type: ${placeType}</p><p>Bikes: ${nbBikes}</p>
+          <p>Empty Docks: ${nbEmptyDocks}</p>
           <p>Total Docks: ${nbDocks}</p>`
         );
 
