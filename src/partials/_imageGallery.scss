@@ -1,0 +1,44 @@
+@use "./variables" as *;
+@use "./typography" as *;
+
+.image-gallery {
+  background-color: $primary-light;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.articles-title {
+  background-color: $txt-light;
+  font-weight: 500;
+  padding-left: 2rem;
+}
+
+div.gallery {
+  margin: auto;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  float: center;
+  width: 15rem;
+}
+
+div.gallery:hover {
+  border: 2px solid $txt-light;
+}
+
+div.gallery img {
+  width: 100%;
+  height: auto;
+}
+
+div.desc {
+  padding: 15px;
+  text-align: center;
+  background-color: $secondary-dark;
+  color: $txt-light;
+  font-weight: 500;
+}
+
+.gallery-image {
+  width: 4rem;
+  height: 4rem;
+}

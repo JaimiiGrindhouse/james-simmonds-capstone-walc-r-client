@@ -12,7 +12,6 @@ import BikeStoragePage from "./pages/BikeStoragePage";
 function App() {
   return (
     <Router>
-      <Header />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<HomePage />} />

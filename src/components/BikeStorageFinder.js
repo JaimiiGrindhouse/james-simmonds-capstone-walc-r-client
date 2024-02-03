@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import mapboxgl from "mapbox-gl";
 import MapboxDirections from "@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 import "@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -9,11 +10,19 @@ import "../partials/_bikestoragefinder.scss";
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 const BikeStorageFinder = () => {
+  const { borough } = useParams();
   const [map, setMap] = useState(null);
   const [showUserPopup, setShowUserPopup] = useState(true);
   const [markersData, setMarkersData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [selectedBorough, setSelectedBorough] = useState(borough); // Initial value
+
+  const boroughs = ["hackney", "islington", "camden" /* ... other boroughs */];
+
+  const handleBoroughChange = (event) => {
+    setSelectedBorough(event.target.value);
+  };
 
   const initializeMap = async () => {
     setIsLoading(true);
@@ -32,7 +41,7 @@ const BikeStorageFinder = () => {
         container: "map",
         style: "mapbox://styles/mapbox/streets-v11",
         center: userLocation,
-        zoom: 17,
+        zoom: 18,
       });
 
       setMap(mapInstance);
@@ -50,7 +59,7 @@ const BikeStorageFinder = () => {
 
       // Fetch bike storage data
       const response = await axios.get(
-        "http://localhost:5059/bikestorage/borough/hackney"
+        `http://localhost:5059/bikestorage/borough/${selectedBorough}`
       );
       const bikeStorageData = response.data;
       console.log(bikeStorageData);
@@ -91,7 +100,7 @@ const BikeStorageFinder = () => {
 
   useEffect(() => {
     initializeMap();
-  }, []);
+  }, [selectedBorough]);
 
   useEffect(() => {
     markersData.forEach((markerData) => {
@@ -111,7 +120,17 @@ const BikeStorageFinder = () => {
         const marker = new mapboxgl.Marker().setLngLat(coordinates).addTo(map);
 
         const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
-          `<h3>ID: ${id}</h3><p>Parking Provision: ${parking_provision}</p><p>Parking Capacity: ${parking_capacity}</p><p className="pop-up_img"><img src="${photo_1}"></p><p className="pop-up_img"><img src="${photo_2}"></p>`
+          `<div class="pop-up">
+          <div pop-up_header>
+          <h3>ID: ${id} <span class="popup-id"></span></h3>
+          </div>
+          <p>Parking Provision: ${parking_provision} <span class="popup-parking-provision"></span></p>
+          <p>Parking Capacity: ${parking_capacity} <span class="popup-parking-capacity"></span></p>
+          </div>
+          <p class="popup-image-container">
+            <img src="${photo_1}" alt="Photo 1" class="popup-image" />
+            <img src="${photo_2}" alt="Photo 2" class="popup-image" />
+          </p> `
         );
 
         marker.setPopup(popup);
@@ -125,6 +144,17 @@ const BikeStorageFinder = () => {
     <div>
       {isLoading && <p>Loading Bike Storage...</p>}
       {error && <p>Error: {error.message}</p>}
+      <select
+        className="borough-select"
+        value={selectedBorough}
+        onChange={handleBoroughChange}
+      >
+        {boroughs.map((borough) => (
+          <option key={borough} value={borough}>
+            {borough}
+          </option>
+        ))}
+      </select>
       <div id="map" style={{ height: "80vh" }} />
     </div>
   );

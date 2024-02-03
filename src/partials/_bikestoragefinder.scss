@@ -2,7 +2,55 @@
 @use "./typography" as *;
 @use "./breakpoints" as *;
 
-.pop-up_img {
-  height: 2rem;
-  width: 2rem;
+.mapboxgl-popup-content {
+  background-color: $primary-main;
+  font-family: $font-primary;
+  border-radius: 10px;
+  border: solid 2px $txt-light;
+}
+.pop-up {
+  background-color: $primary-light;
+  border-radius: 5px;
+  border: solid 2px $txt-light;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+
+  &_header {
+    background-color: $txt-dark;
+    color: $txt-light;
+  }
+}
+.popup-id {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.popup-parking-provision,
+.popup-parking-capacity {
+  margin-bottom: 10px;
+}
+
+.popup-image-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.popup-image {
+  width: 48%;
+
+  border-radius: 5px;
+  border: solid 2px white;
+}
+
+.popup-image:hover {
+  transform: scale(1.6);
+  transition: transform 0.25s ease;
+}
+
+.borough-select {
+  background-color: $primary-light;
+}
+
+.mapboxgl-popup-close-button {
+  height: 1rem;
 }
