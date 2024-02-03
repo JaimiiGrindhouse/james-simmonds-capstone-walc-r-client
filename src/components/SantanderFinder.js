@@ -49,7 +49,9 @@ const SantanderFinder = () => {
       mapInstance.addControl(directions, "top-left");
 
       // Fetch Santander bike point data from API
-      const response = await axios.get("https://api.tfl.gov.uk/bikepoint");
+      const response = await axios.get(
+        "http://localhost:5059/santander/bikepoint"
+      );
       const bikePointsData = response.data;
       console.log(bikePointsData);
 
