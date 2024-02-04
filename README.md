@@ -1,4 +1,4 @@
-# Getting Started
+# Getting Started - a quick guide
 
 The project is built on a React front end, and node.js server.
 

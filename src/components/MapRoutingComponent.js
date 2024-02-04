@@ -60,7 +60,7 @@ const MapComponent = () => {
       if (showUserPopup) {
         markersData.push({
           coordinates: userLocation,
-          popupContent: "Your Location",
+          popupContent: "You are Here!",
         });
       }
 
@@ -71,7 +71,7 @@ const MapComponent = () => {
           .addTo(mapInstance);
 
         const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
-          `<h3>${markerData.popupContent}</h3><p>This is a popup associated with the marker.</p>`
+          `<h3>${markerData.popupContent}</h3>`
         );
 
         marker.setPopup(popup);

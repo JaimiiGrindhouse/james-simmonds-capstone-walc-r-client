@@ -16,9 +16,16 @@ const BikeStorageFinder = () => {
   const [markersData, setMarkersData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [selectedBorough, setSelectedBorough] = useState(borough); // Initial value
+  const [selectedBorough, setSelectedBorough] = useState(
+    borough || "Select your Borough..."
+  );
 
-  const boroughs = ["hackney", "islington", "camden" /* ... other boroughs */];
+  const boroughs = [
+    "Select your Borough...",
+    "Hackney",
+    "Islington",
+    "Camden" /* ... other boroughs */,
+  ];
 
   const handleBoroughChange = (event) => {
     setSelectedBorough(event.target.value);
@@ -141,9 +148,10 @@ const BikeStorageFinder = () => {
   }, [markersData]);
 
   return (
-    <div>
+    <div className="map-background">
       {isLoading && <p>Loading Bike Storage...</p>}
-      {error && <p>Error: {error.message}</p>}
+      {/* {error && <p>Error: {error.message}</p>} */}
+      {/* {error && <p>Select your borough from the dropdown</p>} */}
       <select
         className="borough-select"
         value={selectedBorough}
