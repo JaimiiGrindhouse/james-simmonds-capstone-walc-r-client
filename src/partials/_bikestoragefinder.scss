@@ -47,10 +47,14 @@
   transition: transform 0.25s ease;
 }
 
-.borough-select {
+.mapboxgl-popup-close-button {
+  height: 1rem;
+}
+
+.map-background {
   background-color: $primary-light;
 }
 
-.mapboxgl-popup-close-button {
-  height: 1rem;
+.borough-select {
+  margin-left: 0.7rem;
 }

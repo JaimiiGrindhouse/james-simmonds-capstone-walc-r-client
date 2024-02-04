@@ -41,7 +41,7 @@ const SantanderFinder = () => {
       const directions = new MapboxDirections({
         accessToken: mapboxgl.accessToken,
         unit: "metric",
-        profile: "mapbox/walking",
+        profile: "mapbox/cycling",
         controls: {
           instructions: false,
         },
