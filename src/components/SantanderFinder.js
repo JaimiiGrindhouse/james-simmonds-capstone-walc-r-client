@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import mapboxgl from "mapbox-gl";
 import MapboxDirections from "@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions";
 import axios from "axios";
+import user_marker from "../assets/icons/map_marker.png"; // Import the custom marker icon
 
 import "@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -10,7 +11,6 @@ mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 const SantanderFinder = () => {
   const [map, setMap] = useState(null);
-  const [showUserPopup, setShowUserPopup] = useState(true);
   const [markersData, setMarkersData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -20,18 +20,16 @@ const SantanderFinder = () => {
     setError(null);
 
     try {
-      const userLocation = await new Promise((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(
-          (position) =>
-            resolve([position.coords.longitude, position.coords.latitude]),
-          (error) => reject(error)
-        );
+      const position = await new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
       });
+
+      const { longitude, latitude } = position.coords;
 
       const mapInstance = new mapboxgl.Map({
         container: "map",
         style: "mapbox://styles/mapbox/streets-v11",
-        center: userLocation,
+        center: [longitude, latitude],
         zoom: 14,
       });
 
@@ -47,6 +45,20 @@ const SantanderFinder = () => {
         },
       });
       mapInstance.addControl(directions, "top-left");
+
+      // Add user location marker with custom icon
+      const customMarkerElement = document.createElement("div");
+      customMarkerElement.className = "custom-marker";
+      customMarkerElement.style.backgroundImage = `url(${user_marker})`;
+      customMarkerElement.style.width = "64px";
+      customMarkerElement.style.height = "64px";
+
+      const userMarker = new mapboxgl.Marker({
+        element: customMarkerElement,
+        draggable: false,
+      })
+        .setLngLat([longitude, latitude])
+        .addTo(mapInstance);
 
       // Fetch Santander bike point data from API
       const response = await axios.get(
@@ -73,22 +85,6 @@ const SantanderFinder = () => {
       }));
 
       setMarkersData(markers);
-
-      // Add user location marker
-      const userMarker = new mapboxgl.Marker({
-        color: "red",
-        draggable: false,
-      })
-        .setLngLat(userLocation)
-        .addTo(mapInstance);
-
-      // Add user marker to markersData if popup is desired
-      if (showUserPopup) {
-        markersData.push({
-          coordinates: userLocation,
-          popupContent: "Your Location",
-        });
-      }
     } catch (error) {
       setError(error);
     } finally {
@@ -101,6 +97,7 @@ const SantanderFinder = () => {
   }, []);
 
   useEffect(() => {
+    if (!map) return; // Make sure map is loaded before adding markers
     markersData.forEach((markerData) => {
       const {
         lat,
@@ -129,13 +126,13 @@ const SantanderFinder = () => {
         console.log(`Skipping marker with undefined lat or lon: ${markerData}`);
       }
     });
-  }, [markersData]);
+  }, [markersData, map]);
 
   return (
     <div>
       {isLoading && <p>Loading bike points...</p>}
       {error && <p>Error: {error.message}</p>}
-      <div id="map" style={{ height: "79vh" }} />
+      <div id="map" style={{ height: "85vh" }} />
     </div>
   );
 };
