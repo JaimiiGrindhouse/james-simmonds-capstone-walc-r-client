@@ -163,7 +163,7 @@ const BikeStorageFinder = () => {
           </option>
         ))}
       </select>
-      <div id="map" style={{ height: "80vh" }} />
+      <div id="map" style={{ height: "77vh" }} />
     </div>
   );
 };
