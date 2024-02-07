@@ -144,7 +144,7 @@ const SantanderFinder = () => {
     <div>
       {isLoading && <p>Loading bike points...</p>}
       {error && <p>Error: {error.message}</p>}
-      <div id="map" style={{ height: "85vh" }} />
+      <div id="map" style={{ height: "79vh" }} />
     </div>
   );
 };

@@ -127,7 +127,7 @@ const BikeStorageFinder = () => {
           .setLngLat(coordinates)
           .addTo(map);
 
-        const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
+        const popup = new mapboxgl.Popup({ offset: 35 }).setHTML(
           `<div class="pop-up">
           <div class="pop-up_header">
           <h3>${selectedBorough} </h3>
@@ -166,7 +166,7 @@ const BikeStorageFinder = () => {
           </option>
         ))}
       </select>
-      <div id="map" style={{ height: "82vh" }} />
+      <div id="map" style={{ height: "74vh" }} />
     </div>
   );
 };

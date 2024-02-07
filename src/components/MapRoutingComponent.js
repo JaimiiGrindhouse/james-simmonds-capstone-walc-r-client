@@ -86,7 +86,7 @@ const MapComponent = () => {
 
   return (
     <div>
-      <div id="map" style={{ height: "85vh" }} />
+      <div id="map" style={{ height: "80vh" }} />
     </div>
   );
 };
