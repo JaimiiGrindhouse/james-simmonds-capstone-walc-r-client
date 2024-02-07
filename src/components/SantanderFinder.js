@@ -100,16 +100,8 @@ const SantanderFinder = () => {
   useEffect(() => {
     if (!map) return; // Make sure map is loaded before adding markers
     markersData.forEach((markerData) => {
-      const {
-        lat,
-        lon,
-        id,
-        commonName,
-        placeType,
-        nbBikes,
-        nbEmptyDocks,
-        nbDocks,
-      } = markerData;
+      const { lat, lon, commonName, nbBikes, nbEmptyDocks, nbDocks } =
+        markerData;
 
       if (lat !== undefined && lon !== undefined) {
         const coordinates = [lon, lat];
@@ -128,9 +120,17 @@ const SantanderFinder = () => {
           .addTo(map);
 
         const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
-          `<h3>${commonName}</h3><p>ID: ${id}</p><p>Place Type: ${placeType}</p><p>Bikes: ${nbBikes}</p>
-          <p>Empty Docks: ${nbEmptyDocks}</p>
-          <p>Total Docks: ${nbDocks}</p>`
+          `<div class="santander_pop-up">
+           <div class="santander_pop-up_title">
+           <h4><img class="santander_pop-up_title_img"src=${santander_small}/> Santander</h4>
+              <p>${commonName}</p>
+            </div>
+            <div class="santander_pop-up_items">
+              <p class="santander_pop-up_items_item"> <span>Available Bikes:</span> ${nbBikes}</p>
+              <p class="santander_pop-up_items_item"><span>Empty Spaces:</span> ${nbEmptyDocks}</p>
+              <p class="santander_pop-up_items_item"><span>Total Docks:</span> ${nbDocks}</p>
+            </div>
+          </div>`
         );
 
         marker.setPopup(popup);

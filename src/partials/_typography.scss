@@ -1,5 +1,5 @@
 $font-primary: "Poppins", "sans-serif";
-
+$font-santander: "Santander", "sans-serif";
 @font-face {
   font-family: Poppins;
   src: url(../../public/assets/fonts/Poppins-Regular.ttf) format("ttf");
@@ -19,4 +19,11 @@ $font-primary: "Poppins", "sans-serif";
   src: url(../../public/assets/fonts/Poppins-Black.ttf) format("ttf");
   font-style: heavy_black;
   font-weight: 900;
+}
+
+@font-face {
+  font-family: Santander;
+  src: url(../../public/assets/fonts/Santander.ttf) format("ttf");
+  font-style: regular;
+  font-weight: 400;
 }

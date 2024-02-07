@@ -1,6 +1,39 @@
+@use "./variables" as *;
+@use "./typography" as *;
+
 .custom-marker {
   background-size: cover;
   width: 24px;
   height: 24px;
   cursor: pointer;
+}
+
+.santander_pop-up {
+  background-color: $primary-light;
+  border-radius: 10px;
+  padding: 1rem;
+
+  .santander_pop-up_title {
+    border-bottom: black;
+    font-weight: 400;
+    border-bottom: 1px solid $secondary-dark;
+    margin-bottom: 0.4rem;
+    font-family: $font-santander;
+
+    .santander_pop-up_title_img {
+      height: 1.5rem;
+      width: 1.5rem;
+    }
+  }
+
+  &_items {
+    &_item {
+      margin-bottom: 0.25rem;
+      font-family: $font-primary;
+    }
+  }
+}
+
+span {
+  font-weight: 600;
 }
