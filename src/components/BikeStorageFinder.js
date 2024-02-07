@@ -48,7 +48,7 @@ const BikeStorageFinder = () => {
         container: "map",
         style: "mapbox://styles/mapbox/streets-v11",
         center: userLocation,
-        zoom: 18,
+        zoom: 16,
       });
 
       setMap(mapInstance);
@@ -129,12 +129,14 @@ const BikeStorageFinder = () => {
 
         const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
           `<div class="pop-up">
-          <div pop-up_header>
-          <h3>ID: ${id} <span class="popup-id"></span></h3>
+          <div class="pop-up_header">
+          <h3>${selectedBorough} </h3>
           </div>
-          <p>Parking Provision: ${parking_provision} <span class="popup-parking-provision"></span></p>
-          <p>Parking Capacity: ${parking_capacity} <span class="popup-parking-capacity"></span></p>
+          <div class="pop-up_body">
+          <p class="pop-up_body_item"><span>Cycle Provision:</span> ${parking_provision} </p>
+          <p class="pop-up_body_item"><span>Cycle Capacity:</span> ${parking_capacity} </p>
           </div>
+         
           <p class="popup-image-container">
             <img src="${photo_1}" alt="Photo 1" class="popup-image" />
             <img src="${photo_2}" alt="Photo 2" class="popup-image" />

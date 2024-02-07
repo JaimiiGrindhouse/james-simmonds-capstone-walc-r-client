@@ -7,32 +7,41 @@
   font-family: $font-primary;
   border-radius: 10px;
   border: solid 2px $txt-light;
+  padding-bottom: 10px;
 }
 .pop-up {
   background-color: $primary-light;
   border-radius: 5px;
   border: solid 2px $txt-light;
-  margin-bottom: 1rem;
+  margin-bottom: 0.1rem;
   padding: 0.5rem;
+  padding-bottom: 0rem;
 
   &_header {
-    background-color: $txt-dark;
-    color: $txt-light;
+    color: $txt-dark;
+    border-bottom: 1px solid $secondary-dark;
+    margin-bottom: 0.2rem;
+    font-weight: 800;
   }
 }
+.pop-up_body {
+  &_item {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding: 0.1rem;
+    font-size: 0.9rem;
+  }
+}
+
 .popup-id {
   font-weight: bold;
   margin-bottom: 5px;
 }
 
-.popup-parking-provision,
-.popup-parking-capacity {
-  margin-bottom: 10px;
-}
-
 .popup-image-container {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 0.5rem;
 }
 
 .popup-image {
@@ -43,7 +52,7 @@
 }
 
 .popup-image:hover {
-  transform: scale(1.6);
+  transform: scale(1.7);
   transition: transform 0.25s ease;
 }
 
@@ -57,4 +66,7 @@
 
 .borough-select {
   margin-left: 0.7rem;
+}
+
+span {
 }
