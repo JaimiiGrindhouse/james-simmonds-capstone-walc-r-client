@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import mapboxgl from "mapbox-gl";
-import MapboxDirections from "@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import user_marker from "../assets/icons/map_marker.png"; // Import the custom marker icon
+import bike_park_marker from "../assets/icons/bike_parking_bg_rmvd_sml.png"; // Import the custom bike park marker icon
 import "@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "../partials/_bikestoragefinder.scss";
+
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 const BikeStorageFinder = () => {
   const { borough } = useParams();
   const [map, setMap] = useState(null);
-  const [showUserPopup, setShowUserPopup] = useState(true);
   const [markersData, setMarkersData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -53,17 +53,6 @@ const BikeStorageFinder = () => {
 
       setMap(mapInstance);
 
-      // Add directions control
-      const directions = new MapboxDirections({
-        accessToken: mapboxgl.accessToken,
-        unit: "metric",
-        profile: "mapbox/cycling",
-        controls: {
-          instructions: false,
-        },
-      });
-      mapInstance.addControl(directions, "top-left");
-
       // Fetch bike storage data
       const response = await axios.get(
         `http://localhost:5059/bikestorage/borough/${selectedBorough}`
@@ -96,14 +85,6 @@ const BikeStorageFinder = () => {
       })
         .setLngLat(userLocation)
         .addTo(mapInstance);
-
-      // Add user marker to markersData if popup is desired
-      if (showUserPopup) {
-        markersData.push({
-          coordinates: userLocation,
-          popupContent: "Your Location",
-        });
-      }
     } catch (error) {
       setError(error);
     } finally {
@@ -116,6 +97,8 @@ const BikeStorageFinder = () => {
   }, [selectedBorough]);
 
   useEffect(() => {
+    if (!map) return;
+
     markersData.forEach((markerData) => {
       const {
         lat,
@@ -129,8 +112,20 @@ const BikeStorageFinder = () => {
 
       if (lat !== undefined && lon !== undefined) {
         const coordinates = [lon, lat];
-        console.log(coordinates);
-        const marker = new mapboxgl.Marker().setLngLat(coordinates).addTo(map);
+
+        // Use custom marker image
+        const customMarkerElement = document.createElement("div");
+        customMarkerElement.className = "custom-marker";
+        customMarkerElement.style.backgroundImage = `url(${bike_park_marker})`;
+        customMarkerElement.style.width = "48px"; // Adjust size as needed
+        customMarkerElement.style.height = "48px"; // Adjust size as needed
+
+        const marker = new mapboxgl.Marker({
+          element: customMarkerElement,
+          draggable: false,
+        })
+          .setLngLat(coordinates)
+          .addTo(map);
 
         const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
           `<div class="pop-up">
@@ -151,7 +146,7 @@ const BikeStorageFinder = () => {
         console.log(`Skipping marker with undefined lat or lon: ${markerData}`);
       }
     });
-  }, [markersData]);
+  }, [markersData, map]);
 
   return (
     <div className="map-background">
