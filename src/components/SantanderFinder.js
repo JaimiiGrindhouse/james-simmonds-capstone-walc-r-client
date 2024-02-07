@@ -3,9 +3,10 @@ import mapboxgl from "mapbox-gl";
 import MapboxDirections from "@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions";
 import axios from "axios";
 import user_marker from "../assets/icons/map_marker.png"; // Import the custom marker icon
-
+import santander_small from "../assets/icons/bike_icon_small.png";
 import "@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css";
 import "mapbox-gl/dist/mapbox-gl.css";
+import "../partials/_santanderFinder.scss";
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
@@ -113,7 +114,18 @@ const SantanderFinder = () => {
       if (lat !== undefined && lon !== undefined) {
         const coordinates = [lon, lat];
         console.log(coordinates);
-        const marker = new mapboxgl.Marker().setLngLat(coordinates).addTo(map);
+        const customMarkerElement = document.createElement("div");
+        customMarkerElement.className = "custom-marker";
+        customMarkerElement.style.backgroundImage = `url(${santander_small})`;
+        customMarkerElement.style.width = "32px"; // Adjust size as needed
+        customMarkerElement.style.height = "32px"; // Adjust size as needed
+
+        const marker = new mapboxgl.Marker({
+          element: customMarkerElement,
+          draggable: false,
+        })
+          .setLngLat(coordinates)
+          .addTo(map);
 
         const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
           `<h3>${commonName}</h3><p>ID: ${id}</p><p>Place Type: ${placeType}</p><p>Bikes: ${nbBikes}</p>

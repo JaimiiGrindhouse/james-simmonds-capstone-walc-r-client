@@ -6,6 +6,8 @@ import "@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import ButtonsNavBar from "./ButtonsNavBar";
 
+import user_marker from "../assets/icons/map_marker.png"; // Import the custom marker icon
+
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 const MapComponent = () => {
@@ -42,15 +44,16 @@ const MapComponent = () => {
       });
       mapInstance.addControl(directions, "top-left");
 
-      // Sample JSON data for markers
-      const markersData = [
-        { coordinates: [-0.1, 51.5], popupContent: "Marker 1 - Lorem Ipsum" },
-        { coordinates: [-0.2, 51.51], popupContent: "Marker 2 - Lorem Ipsum" },
-      ];
+      // Create custom marker element for the user location
+      const customMarkerElement = document.createElement("div");
+      customMarkerElement.className = "custom-marker";
+      customMarkerElement.style.backgroundImage = `url(${user_marker})`;
+      customMarkerElement.style.width = "64px";
+      customMarkerElement.style.height = "64px";
 
-      // Add user location marker
+      // Add user location marker with custom icon
       const userMarker = new mapboxgl.Marker({
-        color: "purple",
+        element: customMarkerElement,
         draggable: false,
       })
         .setLngLat(userLocation)
@@ -58,24 +61,11 @@ const MapComponent = () => {
 
       // Add user marker to markersData if popup is desired
       if (showUserPopup) {
-        markersData.push({
-          coordinates: userLocation,
-          popupContent: "You are Here!",
-        });
-      }
-
-      // Add markers with popups
-      markersData.forEach((markerData) => {
-        const marker = new mapboxgl.Marker()
-          .setLngLat(markerData.coordinates)
-          .addTo(mapInstance);
-
         const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
-          `<h3>${markerData.popupContent}</h3>`
+          "<h3>You are Here!</h3>"
         );
-
-        marker.setPopup(popup);
-      });
+        userMarker.setPopup(popup);
+      }
 
       // Update map container height on window resize
       window.addEventListener("resize", () => {

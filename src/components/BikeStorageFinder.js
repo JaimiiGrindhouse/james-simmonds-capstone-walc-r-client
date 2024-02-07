@@ -3,7 +3,7 @@ import mapboxgl from "mapbox-gl";
 import MapboxDirections from "@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-
+import user_marker from "../assets/icons/map_marker.png"; // Import the custom marker icon
 import "@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "../partials/_bikestoragefinder.scss";
@@ -83,9 +83,15 @@ const BikeStorageFinder = () => {
 
       setMarkersData(markers);
 
-      // Add user location marker
+      // Add user location marker with custom icon
+      const customMarkerElement = document.createElement("div");
+      customMarkerElement.className = "custom-marker";
+      customMarkerElement.style.backgroundImage = `url(${user_marker})`;
+      customMarkerElement.style.width = "64px";
+      customMarkerElement.style.height = "64px";
+
       const userMarker = new mapboxgl.Marker({
-        color: "red",
+        element: customMarkerElement,
         draggable: false,
       })
         .setLngLat(userLocation)
